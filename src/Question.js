@@ -2,12 +2,23 @@ import React, {Component} from 'react';
 
 class Question extends Component {
     state = {
-        countVisible: false
+        countVisible: false,
+        selectedAnswer: ""
     }
 
-    setCountVisibility = () => {
+    handleVote = () => {
         this.setState({
             countVisible: true
+        })
+
+        const question = this.props.data;
+        console.log(question);
+        console.log(this.state.selectedAnswer);
+    }
+
+    handleSelectedAnswer = (event) => {
+        this.setState({
+            selectedAnswer: event.target.value
         })
     }
 
@@ -18,7 +29,9 @@ class Question extends Component {
             return (
                 <div className="form-check">
                     <input className="form-check-input" type="radio" 
-                    name={"radiogrp-"+data.id} id={idAnswer} />
+                    name={"radiogrp-"+data.id} id={idAnswer} 
+                    onChange={this.handleSelectedAnswer}
+                    value={answer.number} />
                     <label className="form-check-label" htmlFor={idAnswer}>
                         {answer.name} 
                         {this.state.countVisible ? answer.count : ""} 
@@ -39,7 +52,7 @@ class Question extends Component {
                 </div>
                 <div className="card-footer bg-transparent">
                     <button className="btn btn-primary"
-                        onClick={this.setCountVisibility}>Voter</button>
+                        onClick={this.handleVote}>Voter</button>
                 </div>
             </div>
         );
