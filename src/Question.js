@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
 
 class Question extends Component {
-    state = {}
+    state = {
+        countVisible: false
+    }
+
+    setCountVisibility = () => {
+        this.setState({
+            countVisible: true
+        })
+    }
 
     render() {
         const data = this.props.data;
@@ -12,7 +20,8 @@ class Question extends Component {
                     <input className="form-check-input" type="radio" 
                     name={"radiogrp-"+data.id} id={idAnswer} />
                     <label className="form-check-label" htmlFor={idAnswer}>
-                        {answer.name} {answer.count}
+                        {answer.name} 
+                        {this.state.countVisible ? answer.count : ""} 
                     </label>
                 </div>
             )
@@ -29,7 +38,8 @@ class Question extends Component {
                 </form>
                 </div>
                 <div className="card-footer bg-transparent">
-                    <button className="btn btn-primary">Voter</button>
+                    <button className="btn btn-primary"
+                        onClick={this.setCountVisibility}>Voter</button>
                 </div>
             </div>
         );
